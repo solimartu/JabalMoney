@@ -20,5 +20,8 @@
   "homepage": "https://github.com/solimartu/fintech#readme",
   "devDependencies": {
     "prisma": "^3.7.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.7.0"
   }
 }
