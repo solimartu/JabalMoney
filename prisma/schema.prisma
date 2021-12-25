@@ -31,4 +31,11 @@ id Int      @id @default(autoincrement())
 user User @relation("answers", fields: [userId], references: [id])
 userId Int
 createdAt DateTime @default(now())
+incomes String
+percentfixedoutcomes Float
+percentessentialoutcomes Float
+percentexpendableoutcomes Float
+objective1 String
+objective2 String
+objective3 String
 }
