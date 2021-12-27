@@ -6,7 +6,7 @@ async function main() {
     data: {
       user: {
         connect: {
-          id: 3,
+          id: 1,
         },
       },
       incomes: "Fijos",
@@ -23,7 +23,7 @@ async function main() {
     data: {
       user: {
         connect: {
-          id: 4,
+          id: 2,
         },
       },
       incomes: "Soy autónomo",

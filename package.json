@@ -22,7 +22,9 @@
     "prisma": "^3.7.0"
   },
   "dependencies": {
-    "@prisma/client": "^3.7.0"
+    "@prisma/client": "^3.7.0",
+    "axios": "^0.24.0",
+    "swr": "^1.1.2"
   },
   "prisma": {
     "seed": "node prisma/seed3.js"
