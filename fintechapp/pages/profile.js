@@ -1,48 +1,16 @@
-import axios from "axios";
-// import React, { useState } from "react";
-import useSWR, { SWRConfig } from "swr";
 import { PrismaClient } from "@prisma/client";
-// const { PrismaClient } = require("@prisma/client");
-// const prisma = new PrismaClient();
 
-//   const [assessments, setAssessments] = useState([]);
-
-//   async function getStaticProps() {
-//     const apiUrl = "http:localhost:3002/api/assessmentAnswers";
-//     const data = await axios
-//       .get(apiUrl)
-//       .then((response) => setAssessments(response.data));
-//     console.log(assessments);
-
-//     // The value of the `props` key will be
-//     //  passed to the `Home` component
-//     return {
-//       props: data,
-//     };
-//   }
-export async function getStaticProps(context) {
-  //   const { params } = context;
-  //   const { id } = params;
+export async function getStaticProps() {
   const prisma = new PrismaClient();
-  //   const res = await fetch(`http://localhost:3002/api/assessmentAnswers`);
-  //   const assessments = await res.json();
+
   const assessments = await prisma.assessmentAnswer.findMany({
     where: { id: 1 },
   });
-  //   const assessments = await res.json();
+
   console.log(assessments);
   return {
     props: { assessments },
   };
-  //   try {
-  //     const assessments = await prisma.assessmentAnswer.findMany({});
-
-  //     return {
-  //       props: { assessments },
-  //     };
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
 }
 
 export default function Profile({ assessments }) {
