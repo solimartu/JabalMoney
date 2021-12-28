@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+
   return (
     <div className="container mx-auto bg-[#31ba9c]">
       <h2 className="font-bold text-white text-2xl text-center mt-2 pt-6">
@@ -21,4 +22,32 @@ export default function Home() {
       />
     </div>
   );
+
+
+
+
+
+// export default async function getServerSideProps() {
+//   // Fetch data from external API
+//   const apiUrl = "http://localhost:3000/api/questions";
+//   const response = await fetch(apiUrl);
+//   const data = await response.json();
+//   console.log(data);
+//   //  setQuestions(data);
+//   //  console.log(questions);
+// }
+
+
+
+
+
+
+
+
+
+
+
+  return <div></div>;
+
+
 }
