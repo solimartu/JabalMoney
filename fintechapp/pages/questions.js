@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
 import { PrismaClient } from "@prisma/client";
+import Link from "next/link";
 
 export async function getServerSideProps(context) {
   // const apiUrl = "http://localhost:3000/api/questions";
@@ -12,7 +13,9 @@ export async function getServerSideProps(context) {
   // return { props: { questions } };
 
     const prisma = new PrismaClient();
-    const questions = await prisma.question.findMany();
+    const question = await prisma.question.findFirst();
+    const questions = [question]
+
     
     return {
       props: { questions },
@@ -20,17 +23,20 @@ export async function getServerSideProps(context) {
   
 }
 
-export default function Questions({questions}) {
+export default function Questions({ questions }) {
 
 
  
 const showQuestions = () =>{
+  console.log('te llefgan las preguntas', questions)
   return (
     <section>
       <ul>
         {questions.map((question) => (
           <li key={question.id}>
-            <h3>{question.title}</h3>
+            <Link>
+              <h3>{question.title}</h3>
+            </Link>
           </li>
         ))}
       </ul>
@@ -49,7 +55,7 @@ return (
       A continuacion te haremos unas preguntas para evaluar tu situacion
       financiera
     </section>
-    {/* <h2>{questions[1].title}</h2> */}
+    {/* <h2>{questions.title}</h2> */}
     <section>
        <ul>
          {questions.map((question) => (           
@@ -60,8 +66,8 @@ return (
        </ul>
      </section>
 
-{/*   
-    <button className="p-3 bg-gray-200" onClick={showQuestions}>Start assesment</button> */}
+  
+    {/* <button className="p-3 bg-gray-200" onClick={showQuestions}>Start assesment</button> */}
   </div>
 );
 }
