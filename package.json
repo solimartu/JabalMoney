@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/solimartu/fintech#readme",
   "devDependencies": {
+    "babel-plugin-superjson-next": "^0.4.2",
     "prisma": "^3.7.0"
   },
   "dependencies": {
