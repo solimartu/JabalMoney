@@ -6,6 +6,7 @@ import "rc-slider/assets/index.css";
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider);
 
+
 export async function getStaticProps({ params }) {
   const prisma = new PrismaClient();
   const questions = await prisma.question.findMany({
@@ -40,12 +41,15 @@ export async function getStaticPaths() {
   };
 }
 
+
 export default function Question({ questions }) {
+
   return (
     <div>
       {questions.map((question) => (
         <div key={question.id}>{question.title}</div>
       ))}
+
       <div className="mt-3">
         {questions.map((question) => (
           <div key={question.id}>
@@ -78,6 +82,7 @@ export default function Question({ questions }) {
       ) : (
         <Range className="mt-3" />
       )}
+
     </div>
   );
 }
