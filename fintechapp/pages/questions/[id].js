@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import Link from "next/link";
 
 export async function getStaticProps({ params }) {
   const prisma = new PrismaClient();
@@ -34,13 +35,39 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Post({ questions }) {
+export default function Question({ questions }) {
   return (
     <div>
       {questions.map((question) => (
         <div key={question.id}>{question.title}</div>
       ))}
-      <h1>Me ves o no me ves?</h1>
+      <div className="mt-3">
+        {questions.map((question) => (
+          <div key={question.id}>
+            <Link
+              href={{
+                pathname: "/questions/[id]",
+                query: { id: question.id + 1 },
+              }}
+            >
+              <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white">
+                Next
+              </a>
+            </Link>
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-col mx-40">
+        <button className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
+          Fijos
+        </button>
+        <button className="bg-emerald-400 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
+          Soy autónomo
+        </button>
+        <button className="bg-emerald-500 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
+          Estoy en el paro
+        </button>
+      </div>
     </div>
   );
 }
