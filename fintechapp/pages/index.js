@@ -1,8 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home({ id }) {
   return (
     <div className="container mx-auto bg-[#31ba9c]">
       <h2 className="font-bold text-white text-2xl text-center mt-2 pt-6">
@@ -19,6 +20,13 @@ export default function Home() {
         width={1024}
         alt="bla"
       />
+      <div className="text-center">
+        <Link href={`/questions/${id}`}>
+          <a className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto">
+            Start Assessment
+          </a>
+        </Link>
+      </div>
     </div>
   );
 
