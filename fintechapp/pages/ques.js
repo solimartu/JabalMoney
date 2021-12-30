@@ -38,7 +38,7 @@ export default function Ques({ questions }) {
           Estoy en el paro
         </button>
 
-        <Range className="mt-3" />
+        <Range className="mt-3" dotStyle={{ borderColor: "yellow" }} />
       </div>
       <div className="text-right pr-4">Question {questions.id}/5</div>
     </div>
