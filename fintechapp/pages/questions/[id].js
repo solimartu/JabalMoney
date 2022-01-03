@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma, PrismaClient } from "@prisma/client";
 import Link from "next/link";
-import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
-
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
-const Range = createSliderWithTooltip(Slider);
+import QuesA from "../../components/QuesA";
+import QuesB from "../../components/QuesB";
 
 export async function getStaticProps({ params }) {
   const prisma = new PrismaClient();
@@ -13,12 +10,18 @@ export async function getStaticProps({ params }) {
       id: +params.id,
     },
   });
-  console.log("y estas questions", questions);
-  console.log("y estos params", params);
+  const answers = await prisma.assessmentAnswer.findMany({
+    where: {
+      id: 1,
+    },
+  });
+  console.log("y estas answers", answers);
+  console.log("y esto que es", prisma.assessmentAnswer);
   //   const postData = getPostData(params.id);
   return {
     props: {
       questions,
+      answers,
     },
   };
 }
@@ -29,7 +32,6 @@ export async function getStaticPaths() {
   const qId = questions.map((question) => ({
     params: { id: question.id.toString() },
   }));
-  console.log("que son ids", qId);
 
   // const paths = preguntas.map((pregunta) => ({
   //   params: { id: pregunta.id },
@@ -40,7 +42,7 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Question({ questions }) {
+export default function Question({ questions, answers }) {
   return (
     <div>
       {questions.map((question) => (
@@ -62,21 +64,20 @@ export default function Question({ questions }) {
           </div>
         ))}
       </div>
-      {console.log("las cuestions pal id", questions)}
+
       {questions[0].id === 1 || questions[0].id === 5 ? (
-        <div className="flex flex-col mx-40">
-          <button className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
-            Fijos
-          </button>
-          <button className="bg-emerald-400 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
-            Soy autónomo
-          </button>
-          <button className="bg-emerald-500 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
-            Estoy en el paro
-          </button>
+        <div>
+          {answers.map((answer) => (
+            <button
+              className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
+              key={answer.id}
+            >
+              {answer.incomes} and {answer.objective1}
+            </button>
+          ))}
         </div>
       ) : (
-        <Range className="mt-3" />
+        <QuesB />
       )}
     </div>
   );
