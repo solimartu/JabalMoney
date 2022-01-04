@@ -1,10 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
+import QuesA from "../../components/QuesA";
+import QuesB from "../../components/QuesB";
 import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
-
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider);
+import "rc-slider/assets/index.css";
+import { useState } from "react";
 
 
 export async function getStaticProps({ params }) {
@@ -14,12 +16,17 @@ export async function getStaticProps({ params }) {
       id: +params.id,
     },
   });
-  console.log("y estas questions", questions);
-  console.log("y estos params", params);
+  const answers = await prisma.assessmentAnswer.findMany({
+    where: {
+      id: 1,
+    },
+  });
+
   //   const postData = getPostData(params.id);
   return {
     props: {
       questions,
+      answers,
     },
   };
 }
@@ -30,7 +37,6 @@ export async function getStaticPaths() {
   const qId = questions.map((question) => ({
     params: { id: question.id.toString() },
   }));
-  console.log("que son ids", qId);
 
   // const paths = preguntas.map((pregunta) => ({
   //   params: { id: pregunta.id },
@@ -42,7 +48,25 @@ export async function getStaticPaths() {
 }
 
 
-export default function Question({ questions }) {
+export default function Question({ questions, answers }) {
+  const [perfijos, setPerfijos] = useState([]);
+
+  // function handleInputChange(event) {
+  //   // let value = event.target.value;
+  //   // setPerfijos(value);
+  //   // console.log("el value", value);
+  //   console.log("este es el event", event);
+  // }
+  async function handleSubmit() {
+    // event.preventDefault();
+    const datoPercent = await prisma.assessmentAnswer.create({
+      data: {
+        percentfixedoutcomes: perfijos,
+      },
+    });
+    console.log(datoPercent);
+  }
+
 
   return (
     <div>
@@ -58,6 +82,7 @@ export default function Question({ questions }) {
                 pathname: "/questions/[id]",
                 query: { id: question.id + 1 },
               }}
+              onClick={(event) => handleSubmit(event)}
             >
               <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white">
                 Next
@@ -66,21 +91,27 @@ export default function Question({ questions }) {
           </div>
         ))}
       </div>
-      {console.log("las cuestions pal id", questions)}
+
       {questions[0].id === 1 || questions[0].id === 5 ? (
-        <div className="flex flex-col mx-40">
-          <button className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
-            Fijos
-          </button>
-          <button className="bg-emerald-400 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
-            Soy autónomo
-          </button>
-          <button className="bg-emerald-500 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
-            Estoy en el paro
-          </button>
+        <div>
+          {answers.map((answer) => (
+            <button
+              className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
+              key={answer.id}
+            >
+              {answer.incomes} and {answer.objective1}
+            </button>
+          ))}
         </div>
       ) : (
-        <Range className="mt-3" />
+        <Range
+          className="mt-3"
+          onChange={(event) => setPerfijos(event)}
+          min={0}
+          max={100}
+          value={perfijos}
+          step={5}
+        />
       )}
 
     </div>
