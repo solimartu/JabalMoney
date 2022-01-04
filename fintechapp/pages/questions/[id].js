@@ -8,6 +8,7 @@ const Range = createSliderWithTooltip(Slider);
 import "rc-slider/assets/index.css";
 import { useState } from "react";
 
+
 export async function getStaticProps({ params }) {
   const prisma = new PrismaClient();
   const questions = await prisma.question.findMany({
@@ -46,6 +47,7 @@ export async function getStaticPaths() {
   };
 }
 
+
 export default function Question({ questions, answers }) {
   const [perfijos, setPerfijos] = useState([]);
 
@@ -65,11 +67,13 @@ export default function Question({ questions, answers }) {
     console.log(datoPercent);
   }
 
+
   return (
     <div>
       {questions.map((question) => (
         <div key={question.id}>{question.title}</div>
       ))}
+
       <div className="mt-3">
         {questions.map((question) => (
           <div key={question.id}>
@@ -109,6 +113,7 @@ export default function Question({ questions, answers }) {
           step={5}
         />
       )}
+
     </div>
   );
 }
