@@ -1,7 +1,12 @@
-import { prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import QuesA from "../../components/QuesA";
 import QuesB from "../../components/QuesB";
+import Slider from "rc-slider";
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider);
+import "rc-slider/assets/index.css";
+import { useState } from "react";
 
 export async function getStaticProps({ params }) {
   const prisma = new PrismaClient();
@@ -15,8 +20,7 @@ export async function getStaticProps({ params }) {
       id: 1,
     },
   });
-  console.log("y estas answers", answers);
-  console.log("y esto que es", prisma.assessmentAnswer);
+
   //   const postData = getPostData(params.id);
   return {
     props: {
@@ -43,6 +47,24 @@ export async function getStaticPaths() {
 }
 
 export default function Question({ questions, answers }) {
+  const [perfijos, setPerfijos] = useState([]);
+
+  // function handleInputChange(event) {
+  //   // let value = event.target.value;
+  //   // setPerfijos(value);
+  //   // console.log("el value", value);
+  //   console.log("este es el event", event);
+  // }
+  async function handleSubmit() {
+    // event.preventDefault();
+    const datoPercent = await prisma.assessmentAnswer.create({
+      data: {
+        percentfixedoutcomes: perfijos,
+      },
+    });
+    console.log(datoPercent);
+  }
+
   return (
     <div>
       {questions.map((question) => (
@@ -56,6 +78,7 @@ export default function Question({ questions, answers }) {
                 pathname: "/questions/[id]",
                 query: { id: question.id + 1 },
               }}
+              onClick={(event) => handleSubmit(event)}
             >
               <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white">
                 Next
@@ -77,7 +100,14 @@ export default function Question({ questions, answers }) {
           ))}
         </div>
       ) : (
-        <QuesB />
+        <Range
+          className="mt-3"
+          onChange={(event) => setPerfijos(event)}
+          min={0}
+          max={100}
+          value={perfijos}
+          step={5}
+        />
       )}
     </div>
   );
