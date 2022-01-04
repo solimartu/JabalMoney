@@ -8,8 +8,7 @@ const Range = createSliderWithTooltip(Slider);
 import "rc-slider/assets/index.css";
 import { useState } from "react";
 
-
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, respuestas }) {
   const prisma = new PrismaClient();
   const questions = await prisma.question.findMany({
     where: {
@@ -47,26 +46,66 @@ export async function getStaticPaths() {
   };
 }
 
-
 export default function Question({ questions, answers }) {
-  const [perfijos, setPerfijos] = useState([]);
+  const [respuestas, setRespuestas] = useState({
+    incomes: "",
+    // percentfixedoutcomes: 0,
+    // percentessentialoutcomes: 0,
+    // percentexpendableoutcomes: 0,
+    // objective1: "",
+    // objective2: "",
+    // objective3: "",
+    percentfixedoutcomes: 0.5,
+    percentessentialoutcomes: 0.3,
+    percentexpendableoutcomes: 0.2,
+    objective1: "AdministrarMisFinanzas",
+    objective2: "SalirDeDeudas",
+    objective3: "Ahorrar",
+    userId: 2,
+  });
 
-  // function handleInputChange(event) {
-  //   // let value = event.target.value;
-  //   // setPerfijos(value);
-  //   // console.log("el value", value);
-  //   console.log("este es el event", event);
-  // }
-  async function handleSubmit() {
-    // event.preventDefault();
-    const datoPercent = await prisma.assessmentAnswer.create({
-      data: {
-        percentfixedoutcomes: perfijos,
-      },
-    });
-    console.log(datoPercent);
+  function handleInputChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    setRespuestas((state) => ({
+      ...state,
+      [name]: value,
+    }));
+  }
+  function handleInputRange(e) {
+    setRespuestas((state) => ({
+      ...state,
+      percentfixedoutcomes: e,
+    }));
   }
 
+  async function handleSubmit(respuestas) {
+    // event.preventDefault();
+
+    console.log("estoy entrando aqui o que?");
+    // fetch("http://localhost:3000/api/questions", {
+    //   body: JSON.stringify(respuestas),
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    // });
+    const datoPercent = await prisma.assessmentAnswer.create({
+      data: {
+        user: {
+          connect: {
+            id: 1,
+          },
+        },
+        incomes: "Fijos",
+        percentfixedoutcomes: 0.5,
+        percentessentialoutcomes: 0.3,
+        percentexpendableoutcomes: 0.2,
+        objective1: "AdministrarMisFinanzas",
+        objective2: "SalirDeDeudas",
+        objective3: "Ahorrar",
+      },
+    });
+    console.log("o el dato o la respuesta", datoPercent, respuestas);
+  }
 
   return (
     <div>
@@ -82,9 +121,11 @@ export default function Question({ questions, answers }) {
                 pathname: "/questions/[id]",
                 query: { id: question.id + 1 },
               }}
-              onClick={(event) => handleSubmit(event)}
             >
-              <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white">
+              <a
+                className="rounded-xl p-3  mt-3 bg-emerald-400 text-white"
+                onClick={(e) => handleSubmit(e)}
+              >
                 Next
               </a>
             </Link>
@@ -98,22 +139,25 @@ export default function Question({ questions, answers }) {
             <button
               className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
               key={answer.id}
+              onClick={(e) => handleInputChange(e)}
+              name="incomes"
+              value="SoyAutonomo"
             >
-              {answer.incomes} and {answer.objective1}
+              Soy Autónomo
             </button>
           ))}
         </div>
       ) : (
         <Range
           className="mt-3"
-          onChange={(event) => setPerfijos(event)}
+          onChange={(e) => handleInputRange(e)}
           min={0}
           max={100}
-          value={perfijos}
+          value={respuestas.percentfixedoutcomes}
           step={5}
+          name="percentfixedoutcomes"
         />
       )}
-
     </div>
   );
 }
