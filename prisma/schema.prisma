@@ -24,7 +24,11 @@ model Question {
   createdAt DateTime @default(now())
   title String
   category Int 
+
   opciones Opcion[]
+
+  
+
 }
 
 model Opcion {
@@ -34,8 +38,7 @@ model Opcion {
   createdAt DateTime @default(now())
   opcion String
   
-  
-  
+ 
 }
 
 model AssessmentAnswer {
