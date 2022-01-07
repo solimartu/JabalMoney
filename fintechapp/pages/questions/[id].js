@@ -122,33 +122,33 @@ export default function Question({ questions, answers }) {
       ))}
       <div className="flex flex-col mx-40">
         {questions[0].id === 1 || questions[0].id === 5 ? (
-          // <div>
-          //   {answers.map((answer) => (
-          //     <button
-          //       className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
-          //       key={answer.id}
-          //       onClick={(e) => handleInputChange(e)}
-          //       name="incomes"
-          //       value="SoyAutonomo"
-          //     >
-          //       Soy Autónomo
-          //     </button>
-          //   ))}
-          // </div>
-          <QuesA handleInputChange={handleInputChange} />
+          <div>
+            {answers.map((answer) => (
+              <button
+                className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
+                key={answer.id}
+                onClick={(e) => handleInputChange(e)}
+                name="incomes"
+                value="SoyAutonomo"
+              >
+                Soy Autónomo
+              </button>
+            ))}
+          </div>
         ) : (
-          // <Range
-          //   className="mt-3"
-          //   onChange={(e) => handleInputRange(e)}
-          //   min={0}
-          //   max={100}
-          //   value={respuestas.percentfixedoutcomes}
-          //   step={5}
-          //   name="percentfixedoutcomes"
-          // />
-          <QuesB
-            handleInputRange={(respuesta) => handleInputRange(respuesta)}
+          // <QuesA handleInputChange={handleInputChange} />
+          <Range
+            className="mt-3"
+            onChange={(e) => handleInputRange(e)}
+            min={0}
+            max={100}
+            value={respuestas.percentfixedoutcomes}
+            step={5}
+            name="percentfixedoutcomes"
           />
+          // <QuesB
+          //   handleInputRange={(respuesta) => handleInputRange(respuesta)}
+          // />
         )}
       </div>
       <div className="mt-3">
