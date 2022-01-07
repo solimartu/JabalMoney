@@ -1,15 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `option` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE `option` DROP FOREIGN KEY `Option_questionId_fkey`;
-
--- DropTable
-DROP TABLE `option`;
-
 -- CreateTable
 CREATE TABLE `Opcion` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
