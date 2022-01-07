@@ -32,17 +32,17 @@ export default function Questions({ questions }) {
       <br />
       <section>
         A continuacion te haremos unas preguntas para evaluar tu situacion
-        financiera hola que tal
+        financiera
       </section>
       {/* <h2>{questions.title}</h2> */}
       <section>
-        <ul>
+        {/* <ul>
           {questions.map((question) => (
             <li key={question.id}>
               <h3>{question.title}</h3>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </section>
 
       {/* <button

@@ -21,7 +21,7 @@ export default function Home({ id }) {
         alt="bla"
       />
       <div className="text-center">
-        <Link href={`/questions/${id}`}>
+        <Link href={`/questions/[id]`} as={`/questions/${id}`}>
           <a className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto">
             Start Assessment
           </a>
