@@ -24,6 +24,16 @@ model Question {
   createdAt DateTime @default(now())
   title String
   category Int 
+  options Option[]
+}
+
+model Option {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  option String
+  question Question @relation(fields: [questionId], references: [id])
+  questionId Int
+  
 }
 
 model AssessmentAnswer {
