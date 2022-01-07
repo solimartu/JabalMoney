@@ -66,7 +66,7 @@ export default function Questions({ questions }) {
                 pathname: "/questions/[id]",
                 query: { id: question.id },
               }}
-            >
+          >
               <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white">
                 Next
               </a>
