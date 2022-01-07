@@ -4,16 +4,9 @@ import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 
 export async function getServerSideProps(context) {
-  // const apiUrl = "http://localhost:3000/api/questions";
-  // // await axios.get(apiUrl).then((response) => setQuestions(response.data));
-  // const response = await fetch(apiUrl)
-  // const questions = await response.json()
-  // console.log(questions);
-  // return { props: { questions } };
-
-  const prisma = new PrismaClient();
-  const question = await prisma.question.findFirst();
-  const questions = [question];
+  const apiUrl = `http://localhost:3000/api/questions`;
+  const response = await fetch(apiUrl);
+  const questions = await response.json();
 
   return {
     props: { questions },

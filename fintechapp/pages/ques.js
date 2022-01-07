@@ -6,16 +6,16 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider);
 
 export async function getStaticProps() {
-  const prisma = new PrismaClient();
+  // const prisma = new PrismaClient();
 
-  const questions = await prisma.question.findUnique({
-    where: { id: 1 },
-  });
+  // const questions = await prisma.question.findUnique({
+  //   where: { id: 1 },
+  // });
 
-  console.log(questions);
-  return {
-    props: { questions },
-  };
+  // console.log(questions);
+  // return {
+  //   props: { questions },
+  // };
 }
 
 export default function Ques({ questions }) {
