@@ -8,45 +8,11 @@ const Range = createSliderWithTooltip(Slider);
 import "rc-slider/assets/index.css";
 import { useState } from "react";
 
-export async function getStaticProps({ params, respuestas }) {
-  const prisma = new PrismaClient();
-  const questions = await prisma.question.findMany({
-    where: {
-      id: +params.id,
-    },
-  });
-  const answers = await prisma.assessmentAnswer.findMany({
-    where: {
-      id: 1,
-    },
-  });
-
-  //   const postData = getPostData(params.id);
-  return {
-    props: {
-      questions,
-      answers,
-    },
-  };
+export async function getServerSideProps(context) {
+  console.log("este es el context", context);
 }
 
-export async function getStaticPaths() {
-  const prisma = new PrismaClient();
-  const questions = await prisma.question.findMany();
-  const qId = questions.map((question) => ({
-    params: { id: question.id.toString() },
-  }));
-
-  // const paths = preguntas.map((pregunta) => ({
-  //   params: { id: pregunta.id },
-  // }));
-  return {
-    paths: qId,
-    fallback: false,
-  };
-}
-
-export default function Question({ questions, answers }) {
+export default function Preguntas({ questions, answers }) {
   const [respuestas, setRespuestas] = useState({
     incomes: "",
     // percentfixedoutcomes: 0,
