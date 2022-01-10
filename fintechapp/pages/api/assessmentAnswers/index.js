@@ -6,9 +6,11 @@ export default async function handle(req, res) {
   // const assessments = await prisma.assessmentAnswer.findMany();
   // res.json(assessments);
 
-  const inputAnswer = JSON.parse(req.body);
+  // const inputAnswer = JSON.parse(req.body);
+  // const { answers } = req.body;
+  // console.log("las req", req);
   const assessment = await prisma.assessmentAnswer.create({
-    data: inputAnswer,
+    data: req.body,
   });
 
   res.json(assessment);
