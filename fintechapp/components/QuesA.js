@@ -21,7 +21,21 @@ import { PrismaClient } from "@prisma/client";
 //   };
 // }
 
-export default function QuesA({ answers, handleInputChange }) {
+export async function getServerSideProps({ context }) {
+  console.log(context);
+  const apiUrl = `http://localhost:3000/api/opcions`;
+  const response = await fetch(apiUrl);
+  const opcions = await response.json();
+  console.log("opcions from the server sideeee", opcions);
+
+  return {
+    props: {
+      opcions,
+    },
+  };
+}
+
+export default function QuesA({ opcions, handleInputChange }) {
   return (
     <div className="flex flex-col mx-40">
       {/* <button className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
@@ -30,10 +44,10 @@ export default function QuesA({ answers, handleInputChange }) {
       {/* {answers.map((answer) => (
         <div key={answer.id}>{answer.incomes}</div>
       ))} */}
-      {answers.map((answer) => (
+      {opcions.map((opcion) => (
         <button
           className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
-          key={answer.id}
+          key={opcion.id}
           onClick={(e) => handleInputChange(e)}
           name="incomes"
           value="SoyAutonomo"

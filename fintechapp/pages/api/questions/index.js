@@ -2,24 +2,12 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 export default async function handle(req, res) {
-  const { query } = req;
-  const { id } = query;
-
-  //go to question table
-  const prisma = new PrismaClient();
-
   try {
+    console.log('this is res', res)
     const question = await prisma.question.findFirst();
     const questions = [question];
-    // console.log("esto es question", question);
-    // //opcion table
-    // const opcion = await prisma.opcion.findMany({
-    //   // where: {
-    //   //   questionId: id,
-    //   // },
-    // });
-    res.status(200).json(questions);
-    console.log("esto es opcion", opcion);
+    console.log('this is questions from questions/index', questions)
+    return res.status(200).json(questions);
   } catch (error) {
     console.log("este seria el error", error);
     res.status(400).json({ error });
