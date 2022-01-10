@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 
-export async function getServerSideProps(context) {
-  const apiUrl = `http://localhost:3000/api/questions`;
+export async function getServerSideProps( context ) {
+  console.log('esto es context pRAMS ', context)
+  const id = context.params.id
+  const apiUrl = `http://localhost:3000/api/questions/${id}`;
   const response = await fetch(apiUrl);
   const questions = await response.json();
 
