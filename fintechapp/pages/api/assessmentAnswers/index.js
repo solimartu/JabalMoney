@@ -8,7 +8,7 @@ export default async function handle(req, res) {
 
   // const inputAnswer = JSON.parse(req.body);
   // const { answers } = req.body;
-  // console.log("las req", req);
+  console.log("las reqbody", req.body);
   const assessment = await prisma.assessmentAnswer.create({
     data: req.body,
   });

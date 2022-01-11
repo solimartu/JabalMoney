@@ -42,15 +42,9 @@ export async function getStaticProps({ params }) {
   //     where: { id: +params.id },
   //   });
   const opcions = await prisma.opcion.findMany({
-    where: { questionId: 1 },
+    where: { questionId: +params.id },
   });
 
-  console.log(
-    "los params, luego questions, luego opcions",
-    params,
-    questions,
-    opcions
-  );
   return {
     props: { questions, opcions },
   };
@@ -77,36 +71,37 @@ export default function Ques({ questions, opcions }) {
     userId: 1,
     incomes: "",
     percentfixedoutcomes: 0,
-    percentessentialoutcomes: 0.3,
-    percentexpendableoutcomes: 0.2,
-    objective1: "AdministrarMisFinanzas",
-    objective2: "SalirDeDeudas",
-    objective3: "Ahorrar",
+    percentessentialoutcomes: 0,
+    percentexpendableoutcomes: 0,
+    objective1: "",
+    objective2: "null",
+    objective3: "null",
   });
-  console.log(
-    "las questions, las opcions",
-
-    questions,
-    opcions
-  );
 
   function handleInputChange(e) {
     e.preventDefault();
-    const name = e.target.name;
+    const name = questions.id === 1 ? "incomes" : "objective1";
+    // const name = e.target.name;
     const value = e.target.value;
     setAnswers((state) => ({ ...state, [name]: value }));
   }
 
   function handleInputRange(e) {
+    const name =
+      questions.id === 2
+        ? "percentfixedoutcomes"
+        : questions.id === 3
+        ? "percentessentialoutcomes"
+        : "percentexpendableoutcomes";
     setAnswers((state) => ({
       ...state,
-      percentfixedoutcomes: e,
+      [name]: e,
     }));
   }
 
   async function sendAnswers() {
     try {
-      await fetch("api/assessmentAnswers", {
+      await fetch("/api/assessmentAnswers", {
         method: "POST",
         body: JSON.stringify(answers),
         headers: { "Content-Type": "application/json" },
@@ -155,33 +150,36 @@ export default function Ques({ questions, opcions }) {
         {/* <Range className="mt-3" dotStyle={{ borderColor: "yellow" }} /> */}
       </div>{" "}
       {questions.id === 1 || questions.id === 5 ? (
-        <QuesA
-          sendAnswer={(answer) => sendAnswer(answer)}
-          handleInputChange={handleInputChange}
-          opcions={opcions}
-        >
+        <QuesA handleInputChange={handleInputChange} opcions={opcions}>
           {" "}
         </QuesA>
       ) : (
-        <QuesB
-          sendAnswer={(answer) => sendAnswer(answer)}
-          handleInputRange={handleInputRange}
-        ></QuesB>
+        <QuesB handleInputRange={handleInputRange}></QuesB>
       )}
       <div className="text-right pr-4">Question {questions.id}/5</div>
-      <Link
-        href={{
-          pathname: "/questions/[id]",
-          query: { id: questions.id + 1 },
-        }}
-      >
-        <a
-          className="rounded-xl p-3  mt-3 bg-emerald-400 text-white"
-          onClick={() => sendAnswers()}
+      {questions.id === 5 ? (
+        <Link
+          href={{
+            pathname: "/questions/",
+          }}
         >
-          Next
-        </a>
-      </Link>
+          <a
+            className="rounded-xl p-3  mt-3 bg-emerald-400 text-white"
+            onClick={() => sendAnswers()}
+          >
+            Finish
+          </a>
+        </Link>
+      ) : (
+        <Link
+          href={{
+            pathname: "/questions/[id]",
+            query: { id: questions.id + 1 },
+          }}
+        >
+          <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white">Next</a>
+        </Link>
+      )}
     </div>
   );
 }

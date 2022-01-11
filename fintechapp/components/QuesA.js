@@ -33,7 +33,7 @@ import React from "react";
 //   };
 // }
 
-export default function QuesA({ opcions, handleInputChange }) {
+export default function QuesA({ opcions, handleInputChange, name }) {
   return (
     <div className="flex flex-col mx-40">
       {/* <button className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
@@ -58,7 +58,7 @@ export default function QuesA({ opcions, handleInputChange }) {
           className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
           key={opcion.id}
           onClick={(e) => handleInputChange(e)}
-          name="incomes"
+          name={name}
           value={opcion.opcion}
         >
           {opcion.opcion}

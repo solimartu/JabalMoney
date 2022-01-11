@@ -42,32 +42,12 @@ id Int      @id @default(autoincrement())
 user User @relation("answers", fields: [userId], references: [id])
 userId Int
 createdAt DateTime @default(now())
-incomes Incomes @default(Fijos)
+incomes String
 percentfixedoutcomes Float
 percentessentialoutcomes Float
 percentexpendableoutcomes Float
-objective1 Objective1 @default(SalirDeDeudas)
-objective2 Objective2 @default(Ahorrar)
-objective3 Objective3 @default(AdministrarMisFinanzas)
+objective1 String
+objective2 String
+objective3 String
 }
 
-enum Incomes {
-  Fijos
-  SoyAutonomo
-  EstoyEnElParo
-}
-enum Objective1 {
-  SalirDeDeudas
-  Ahorrar
-  AdministrarMisFinanzas
-}
-enum Objective2 {
-  SalirDeDeudas
-  Ahorrar
-  AdministrarMisFinanzas
-}
-enum Objective3 {
-  SalirDeDeudas
-  Ahorrar
-  AdministrarMisFinanzas
-}
