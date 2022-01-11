@@ -1,9 +1,7 @@
 import React from "react";
-import { PrismaClient } from "@prisma/client";
 
 // export async function getStaticProps() {
-//   console.log("hola soy prisma acaso?");
-//   const prisma = new PrismaClient();
+
 //   const answers = await prisma.assessmentAnswer.findMany(
 //   //   {
 //   //   where: {
@@ -21,19 +19,19 @@ import { PrismaClient } from "@prisma/client";
 //   };
 // }
 
-export async function getServerSideProps({ context }) {
-  console.log(context);
-  const apiUrl = `http://localhost:3000/api/opcions`;
-  const response = await fetch(apiUrl);
-  const opcions = await response.json();
-  console.log("opcions from the server sideeee", opcions);
+// export async function getServerSideProps({ context }) {
+//   console.log(context);
+//   const apiUrl = `http://localhost:3000/api/opcions`;
+//   const response = await fetch(apiUrl);
+//   const opcions = await response.json();
+//   console.log("opcions from the server sideeee", opcions);
 
-  return {
-    props: {
-      opcions,
-    },
-  };
-}
+//   return {
+//     props: {
+//       opcions,
+//     },
+//   };
+// }
 
 export default function QuesA({ opcions, handleInputChange }) {
   return (
@@ -44,7 +42,7 @@ export default function QuesA({ opcions, handleInputChange }) {
       {/* {answers.map((answer) => (
         <div key={answer.id}>{answer.incomes}</div>
       ))} */}
-      {opcions.map((opcion) => (
+      {/* {opcions.map((opcion) => (
         <button
           className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
           key={opcion.id}
@@ -53,6 +51,17 @@ export default function QuesA({ opcions, handleInputChange }) {
           value="SoyAutonomo"
         >
           Soy Autónomo
+        </button>
+      ))} */}
+      {opcions.map((opcion) => (
+        <button
+          className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
+          key={opcion.id}
+          onClick={(e) => handleInputChange(e)}
+          name="incomes"
+          value={opcion.opcion}
+        >
+          {opcion.opcion}
         </button>
       ))}
     </div>

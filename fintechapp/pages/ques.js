@@ -3,6 +3,8 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import Link from "next/link";
 import { useState } from "react";
+import QuesA from "../components/QuesA";
+import QuesB from "../components/QuesB";
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider);
 
@@ -51,7 +53,7 @@ export default function Ques({ questions, opcions }) {
   const [answers, setAnswers] = useState({
     userId: 1,
     incomes: "",
-    percentfixedoutcomes: 0.5,
+    percentfixedoutcomes: 0,
     percentessentialoutcomes: 0.3,
     percentexpendableoutcomes: 0.2,
     objective1: "AdministrarMisFinanzas",
@@ -64,6 +66,13 @@ export default function Ques({ questions, opcions }) {
     const name = e.target.name;
     const value = e.target.value;
     setAnswers((state) => ({ ...state, [name]: value }));
+  }
+
+  function handleInputRange(e) {
+    setAnswers((state) => ({
+      ...state,
+      percentfixedoutcomes: e,
+    }));
   }
 
   async function sendAnswers() {
@@ -93,7 +102,7 @@ export default function Ques({ questions, opcions }) {
         {questions.title}
       </h3>
       <div className="flex flex-col mx-40">
-        {opcions.map((opcion) => (
+        {/* {opcions.map((opcion) => (
           <button
             className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
             key={opcion.id}
@@ -103,7 +112,7 @@ export default function Ques({ questions, opcions }) {
           >
             {opcion.opcion}
           </button>
-        ))}
+        ))} */}
         {/* <button className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl">
           Fijos
         </button>
@@ -115,12 +124,28 @@ export default function Ques({ questions, opcions }) {
         </button> */}
 
         {/* <Range className="mt-3" dotStyle={{ borderColor: "yellow" }} /> */}
-      </div>
+      </div>{" "}
+      {
+        // questions.id === 1 || questions.id === 5 ? (
+        //   <QuesA
+        //     sendAnswer={(answer) => sendAnswer(answer)}
+        //     handleInputChange={handleInputChange}
+        //     opcions={opcions}
+        //   >
+        //     {" "}
+        //   </QuesA>
+        // ) : (
+        <QuesB
+          sendAnswer={(answer) => sendAnswer(answer)}
+          handleInputRange={handleInputRange}
+        ></QuesB>
+        // )
+      }
       <div className="text-right pr-4">Question {questions.id}/5</div>
       <Link
         href={{
-          pathname: "/questions/[id]",
-          query: { id: questions.id },
+          pathname: "/ques/[id]",
+          query: { id: questions.id + 1 },
         }}
       >
         <a
