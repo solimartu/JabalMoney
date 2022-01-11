@@ -4,18 +4,17 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider);
 import "rc-slider/assets/index.css";
 
-export default function QuesB({ respuesta, handleInputRange }) {
+export default function QuesB({ handleInputRange, name }) {
   return (
     <div>
       <Range
         className="mt-3"
-        onChange={(respuesta) => handleInputRange(respuesta)}
+        onChange={(e) => handleInputRange(e)}
         min={0}
         max={100}
-        value="percentfixedoutcomes"
         // value={respuestas.percentfixedoutcomes}
         step={5}
-        name="percentfixedoutcomes"
+        name={name}
       />
     </div>
   );

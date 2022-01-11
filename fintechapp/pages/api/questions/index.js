@@ -3,13 +3,11 @@ const prisma = new PrismaClient();
 
 export default async function handle(req, res) {
   try {
-    console.log('this is res', res)
     const question = await prisma.question.findFirst();
     const questions = [question];
-    console.log('this is questions from questions/index', questions)
+
     return res.status(200).json(questions);
   } catch (error) {
-    console.log("este seria el error", error);
     res.status(400).json({ error });
   }
   handle()
