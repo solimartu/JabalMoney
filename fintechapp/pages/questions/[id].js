@@ -160,7 +160,7 @@ export default function Ques({ questions, opcions }) {
       {questions.id === 5 ? (
         <Link
           href={{
-            pathname: "/questions/",
+            pathname: "/profile",
           }}
         >
           <a
