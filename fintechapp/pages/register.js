@@ -1,61 +1,109 @@
-import { useState } from "react";
-import Router from "next/router";
-import { useUser } from "../lib/hooks";
-import Form from "../components/form";
+import React, { useState } from "react";
+// import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import useAuth from "./hooks/useAuth";
 
-const Register = () => {
-  useUser({ redirectTo: "/", redirectIfFound: true });
+function Registration() {
+  const [user, setUser] = useState({ username: "", email: "", password: "" });
 
-  const [errorMsg, setErrorMsg] = useState("");
+  const [error, setError] = useState("");
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  const auth = useAuth();
+  // const navigate = useNavigate();
 
-    if (errorMsg) setErrorMsg("");
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    const { value, name } = event.target;
+    setUser((state) => ({ ...state, [name]: value }));
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    register();
+  };
 
-    const body = {
-      username: e.currentTarget.username.value,
-      password: e.currentTarget.password.value,
-    };
-
-    if (body.password !== e.currentTarget.rpassword.value) {
-      setErrorMsg(`The passwords don't match`);
-      return;
-    }
-
+  const register = async () => {
     try {
-      const res = await fetch("/api/signup", {
+      const response = await fetch("api/users/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
       });
-      if (res.status === 200) {
-        Router.push("/login");
-      } else {
-        throw new Error(await res.text());
-      }
+      const newUser = await response.json();
+      console.log(newUser);
+      //   props.onDoneCb(newUser);
+      setUser(newUser);
     } catch (error) {
-      console.error("An unexpected error happened occurred:", error);
-      setErrorMsg(error.message);
+      setError(error.message);
     }
-  }
+
+    // navigate("/login");
+  };
+  const { username, email, password } = user;
 
   return (
-    <>
-      <div className="login">
-        <Form isLogin={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
-      </div>
-      <style jsx>{`
-        .login {
-          max-width: 21rem;
-          margin: 0 auto;
-          padding: 1rem;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-        }
-      `}</style>
-    </>
-  );
-};
+    <div>
+      <div className="container bg-light shadow mt-4">
+        <h3 className="darker">Registration</h3>
 
-export default Register;
+        <form id="registrationform" onSubmit={handleSubmit}>
+          <div className="col-6 mt-4">
+            <label className="form-label mt-4">Username</label>
+            <input
+              className="form-control"
+              type="text"
+              name="username"
+              value={username}
+              required
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div className="col-6 mt-4">
+            <label className="form-label mt-4">Email</label>
+            <input
+              className="form-control"
+              type="email"
+              name="email"
+              value={email}
+              required
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+          <div className="col-6 mt-4">
+            <label className="form-label mt-4">Password</label>
+            <input
+              className="form-control"
+              type="password"
+              name="password"
+              value={password}
+              required
+              onChange={(e) => handleInputChange(e)}
+            />
+          </div>
+
+          <div className="col-6 mt-4">
+            <div class="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                onChange={(e) => handleInputChange(e)}
+              />
+              <label className="form-check-label" htmlFor="flexCheckDefault">
+                I agree with Terms of Use
+              </label>
+            </div>
+          </div>
+          <div className="col-6 mt-4">
+            <button type="submit" className="btn btn-test6 bg-test6 m-4">
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default Registration;

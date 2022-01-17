@@ -1,57 +1,102 @@
-import { useState } from "react";
-import Router from "next/router";
-import { useUser } from "../lib/hooks";
-import Form from "../components/form";
+import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import useAuth from "./hooks/useAuth";
 
+function Login() {
+  const [credentials, setCredentials] = useState({
+    username: "test",
+    password: "test",
+  });
 
-const Login = () => {
-  useUser({ redirectTo: "/", redirectIfFound: true });
+  const [error, setError] = useState(null);
 
-  const [errorMsg, setErrorMsg] = useState("");
+  const auth = useAuth(); //so i dont need to do the post in here
+  // const navigate = useNavigate();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  const { username, password } = credentials;
 
-    if (errorMsg) setErrorMsg("");
+  const handleChange = (e) => {
+    e.persist();
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+  };
 
-    const body = {
-      username: e.currentTarget.username.value,
-      password: e.currentTarget.password.value,
-    };
-
+  const login = async () => {
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (res.status === 200) {
-        Router.push("/");
-      } else {
-        throw new Error(await res.text());
-      }
-    } catch (error) {
-      console.error("An unexpected error happened occurred:", error);
-      setErrorMsg(error.message);
+      await auth.signin(credentials);
+      // navigate("/dashboard");
+    } catch (err) {
+      setError(err);
     }
-  }
+  };
+
+  //THIS WAS BEFORE THE AUTHPROVIDER THING
+  //   const login = async () => {
+
+  //       console.log("am i in the login?")
+  //     try {
+  //       const { data } = await axios("/users/login", {
+  //         method: "POST",
+  //         data: credentials,
+
+  //       });
+  //  //store it locally
+  //       localStorage.setItem("token", data.token);
+  //       console.log(data.message, data.token);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+
+  //   };
+
+  //   const logout = () => {
+  //     localStorage.removeItem("token");
+  //     console.log('am i in the logout?')
+  //   };
 
   return (
-    <>
-      <div className="login">
-        <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+    <div>
+      {" "}
+      <div className="container bg-light shadow mt-4">
+        <br />
+        <h3 className="darker">Login</h3>
+
+        <div className="col-6">
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            placeholder="type your username"
+            value={username}
+            className="form-control"
+            onChange={(e) => handleChange(e)}
+          />
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            className="form-control"
+            value={password}
+            onChange={(e) => handleChange(e)}
+          />
+          <button
+            className="btn btn-test6 bg-test6 m-4"
+            type="submit"
+            onClick={login}
+          >
+            Log in
+          </button>
+
+          <div className="col-6 mt-4"></div>
+        </div>
+        {error && <div className="alert alert-danger mt-4">{error}</div>}
+        <br />
+
+        {/* <button className="btn btn-test6 bg-test6 m-4" onClick={logout}>Log out</button> */}
+        {/* <button className="btn btn-test6 bg-test6 m-4" onClick={requestData}>see entries</button> */}
       </div>
-      <style jsx>{`
-        .login {
-          max-width: 21rem;
-          margin: 0 auto;
-          padding: 1rem;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-        }
-      `}</style>
-    </>
+    </div>
   );
-};
+}
 
 export default Login;
