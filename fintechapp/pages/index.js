@@ -3,25 +3,48 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 // import { signIn, signOut, useSession } from "next-auth/react";
+import { useState } from "react";
+import Router from "next/router";
+import { useUser } from "../lib/hooks";
+import Form from "../components/form";
+
+
 
 export default function Home() {
-  // const [session, loading] = useSession();
-  //uncomment this -solo esta linea-
-  // const { data: session } = useSession();
-  // if (session) {
-  //   return (
-  //     <>
-  //       Signed in as {session.user.email} <br />
-  //       <button onClick={() => signOut()}>Sign out</button>
-  //     </>
-  //   );
-  // }
-  // return (
-  //   <>
-  //     Not signed in <br />
-  //     <button onClick={() => signIn()}>Sign in</button>
-  //   </>
-  // );
+
+ useUser({ redirectTo: "/", redirectIfFound: true });
+
+ const [errorMsg, setErrorMsg] = useState("");
+
+ async function handleSubmit(e) {
+   e.preventDefault();
+
+   if (errorMsg) setErrorMsg("");
+
+   const body = {
+     username: e.currentTarget.username.value,
+     password: e.currentTarget.password.value,
+   };
+
+   try {
+     const res = await fetch("/api/login", {
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
+       body: JSON.stringify(body),
+     });
+     if (res.status === 200) {
+       Router.push("/");
+     } else {
+       throw new Error(await res.text());
+     }
+   } catch (error) {
+     console.error("An unexpected error happened occurred:", error);
+     setErrorMsg(error.message);
+   }
+ }
+
+
+
   return (
     <div className="container mx-auto bg-[#31ba9c]">
       {/* {!session && (
@@ -70,6 +93,7 @@ export default function Home() {
               Deja de perder tiempo
             </a>
           </Link>
+          <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
           {/* </>
           
           )}
