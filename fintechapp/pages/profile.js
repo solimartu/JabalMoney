@@ -14,55 +14,56 @@ export async function getStaticProps() {
 }
 
 export default function Profile({ assessments }) {
-
-   const user = useUser({ redirectTo: "/login" });
-
   return (
     <div className="container mx-auto">
-      {user && (
-      <><h2 className="font-bold text-black text-2xl text-center mt-2">
+      <>
+        <h2 className="font-bold text-black text-2xl text-center mt-2">
           Tu perfil es:
-        </h2><div className="grid gap-4 grid-cols-3 mt-3">
-            <div className="flex items-center justify-center rounded-xl text-white text-2xl bg-emerald-300 flex-col">
-              <h5 className="font-bold text-xl">Tus ingresos:</h5>
-              <h3 className="font-extrabold text-4xl">{assessments.incomes}</h3>
+        </h2>
+        <div className="grid gap-4 grid-cols-3 mt-3">
+          <div className="flex items-center justify-center rounded-xl text-white text-2xl bg-emerald-300 flex-col">
+            <h5 className="font-bold text-xl">Tus ingresos:</h5>
+            <h3 className="font-extrabold text-4xl">{assessments.incomes}</h3>
+          </div>
+          <div className="flex items-center justify-center rounded-xl text-white text-4xl font-extrabold bg-emerald-400  flex-col">
+            <div className="flex flex-col text-center">
+              <h3 className="text-5xl font-extrabold">
+                {assessments.percentfixedoutcomes}%
+              </h3>
+              <h6 className="font-normal text-xs">destinado a gastos </h6>
+              <h5 className="text-xl font-extrabold uppercase">fijos</h5>
             </div>
-            <div className="flex items-center justify-center rounded-xl text-white text-4xl font-extrabold bg-emerald-400  flex-col">
-              <div className="flex flex-col text-center">
-                <h3 className="text-5xl font-extrabold">
-                  {assessments.percentfixedoutcomes}%
-                </h3>
-                <h6 className="font-normal text-xs">destinado a gastos </h6>
-                <h5 className="text-xl font-extrabold uppercase">fijos</h5>
-              </div>
-              <div className="flex flex-col text-center">
-                <h3 className="text-5xl font-extrabold">
-                  {assessments.percentessentialoutcomes}%
-                </h3>
-                <h6 className="font-normal text-xs">destinado a gastos </h6>
-                <h5 className="text-xl font-extrabold uppercase">
-                  variables imprescindibles
-                </h5>
-              </div>
-              <div className="flex flex-col text-center">
-                <h3 className="text-5xl font-extrabold">
-                  {assessments.percentexpendableoutcomes}%
-                </h3>
-                <h6 className="font-normal text-xs">destinado a gastos </h6>
-                <h5 className="text-xl font-extrabold uppercase">
-                  variables prescindibles
-                </h5>
-              </div>
+            <div className="flex flex-col text-center">
+              <h3 className="text-5xl font-extrabold">
+                {assessments.percentessentialoutcomes}%
+              </h3>
+              <h6 className="font-normal text-xs">destinado a gastos </h6>
+              <h5 className="text-xl font-extrabold uppercase">
+                variables imprescindibles
+              </h5>
             </div>
-            <div className="flex items-center justify-center rounded-xl text-white bg-emerald-500 flex-col text-center">
-              <h5 className="font-bold text-xl">Tus objetivos:</h5>
-              {/* <h3 className="text-5xl font-extrabold">1</h3> */}
-              <h5 className="text-4xl font-extrabold">{assessments.objective1}</h5>
+            <div className="flex flex-col text-center">
+              <h3 className="text-5xl font-extrabold">
+                {assessments.percentexpendableoutcomes}%
+              </h3>
+              <h6 className="font-normal text-xs">destinado a gastos </h6>
+              <h5 className="text-xl font-extrabold uppercase">
+                variables prescindibles
+              </h5>
+            </div>
+          </div>
+          <div className="flex items-center justify-center rounded-xl text-white bg-emerald-500 flex-col text-center">
+            <h5 className="font-bold text-xl">Tus objetivos:</h5>
+            {/* <h3 className="text-5xl font-extrabold">1</h3> */}
+            <h5 className="text-4xl font-extrabold">
+              {assessments.objective1}
+            </h5>
 
-              {/* <h3 className="text-5xl font-extrabold">2</h3>
+            {/* <h3 className="text-5xl font-extrabold">2</h3>
     <h5 className="text-2xl font-extrabold">{assessments.objective2}</h5> */}
-            </div>
-          </div></> )}
+          </div>
+        </div>
+      </>
       <button className="text-black text-center">Y ahora qué?</button>
     </div>
   );

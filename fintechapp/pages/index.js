@@ -5,45 +5,39 @@ import styles from "../styles/Home.module.css";
 // import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import Router from "next/router";
-import { useUser } from "../lib/hooks";
-import Form from "../components/form";
-
 
 
 export default function Home() {
+ 
 
- useUser({ redirectTo: "/", redirectIfFound: true });
+  const [errorMsg, setErrorMsg] = useState("");
 
- const [errorMsg, setErrorMsg] = useState("");
+  async function handleSubmit(e) {
+    e.preventDefault();
 
- async function handleSubmit(e) {
-   e.preventDefault();
+    if (errorMsg) setErrorMsg("");
 
-   if (errorMsg) setErrorMsg("");
+    const body = {
+      username: e.currentTarget.username.value,
+      password: e.currentTarget.password.value,
+    };
 
-   const body = {
-     username: e.currentTarget.username.value,
-     password: e.currentTarget.password.value,
-   };
-
-   try {
-     const res = await fetch("/api/login", {
-       method: "POST",
-       headers: { "Content-Type": "application/json" },
-       body: JSON.stringify(body),
-     });
-     if (res.status === 200) {
-       Router.push("/");
-     } else {
-       throw new Error(await res.text());
-     }
-   } catch (error) {
-     console.error("An unexpected error happened occurred:", error);
-     setErrorMsg(error.message);
-   }
- }
-
-
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (res.status === 200) {
+        Router.push("/");
+      } else {
+        throw new Error(await res.text());
+      }
+    } catch (error) {
+      console.error("An unexpected error happened occurred:", error);
+      setErrorMsg(error.message);
+    }
+  }
 
   return (
     <div className="container mx-auto bg-[#31ba9c]">
@@ -93,7 +87,7 @@ export default function Home() {
               Deja de perder tiempo
             </a>
           </Link>
-          <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+
           {/* </>
           
           )}
