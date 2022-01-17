@@ -144,7 +144,7 @@ export default function Ques({ questions, opcions }) {
       <div className="text-right pr-4">Question {questions.id}/5</div>
       <Link
         href={{
-          pathname: "/ques/[id]",
+          pathname: "/questions/[id]",
           query: { id: questions.id + 1 },
         }}
       >

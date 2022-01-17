@@ -2,11 +2,12 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import { signIn, signOut, useSession } from "next-auth/react";
+// import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
   // const [session, loading] = useSession();
-  const { data: session } = useSession();
+  //uncomment this -solo esta linea-
+  // const { data: session } = useSession();
   // if (session) {
   //   return (
   //     <>
@@ -55,34 +56,35 @@ export default function Home() {
         <div className="flex items-center justify-center rounded-xl text-white bg-emerald-300 flex-col mr-2">
           {/* <h5 className="font-bold text-xl">Tus ingresos:</h5>
           <h3 className="font-extrabold text-5xl">lalala</h3> */}
-          {!session && (
+          {/* {!session && (
             <>
               Aún no estás logueado <br />
               <button
-                onClick={signIn}
+                onClick={() => signIn()}
                 className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto"
               >
                 Sign In
-              </button>
-              <Link href={`/questions`}>
-                <a className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto">
-                  Deja de perder tiempo
-                </a>
-              </Link>
-            </>
+              </button> */}
+          <Link href={`/questions`}>
+            <a className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto">
+              Deja de perder tiempo
+            </a>
+          </Link>
+          {/* </>
+          
           )}
           {session && (
             <>
-              Sign in as {session.user.email} <br />
+              Sign in as {session.user.username} <br />
               <div>You can now access our super secret pages</div>
-              <button onClick={signOut}>Sign Out</button>
+              <button onClick={() => signOut()}>Sign Out</button>
               <Link href={`/questions`}>
                 <a className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto">
                   Deja de perder tiempo
                 </a>
               </Link>
             </>
-          )}
+          )}  */}
         </div>
       </div>
       {/* <Image
