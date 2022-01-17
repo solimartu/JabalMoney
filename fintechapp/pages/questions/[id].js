@@ -150,7 +150,7 @@ export default function Ques({ questions, opcions }) {
         {/* <Range className="mt-3" dotStyle={{ borderColor: "yellow" }} /> */}
       </div>{" "}
       {questions.id === 1 || questions.id === 5 ? (
-        <QuesA handleInputChange={handleInputChange} opcions={opcions}>
+        <QuesA handleInputChange={handleInputChange} opcions={opcions} >
           {" "}
         </QuesA>
       ) : (
@@ -164,7 +164,7 @@ export default function Ques({ questions, opcions }) {
           }}
         >
           <a
-            className="rounded-xl p-3  mt-3 bg-emerald-400 text-white"
+            className="rounded-xl p-3  mt-3 bg-emerald-500 text-white"
             onClick={() => sendAnswers()}
           >
             Finish
@@ -177,7 +177,7 @@ export default function Ques({ questions, opcions }) {
             query: { id: questions.id + 1 },
           }}
         >
-          <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white">Next</a>
+          <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white hover:bg-emerald-500">Next</a>
         </Link>
       )}
     </div>

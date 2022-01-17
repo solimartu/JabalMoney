@@ -4,6 +4,7 @@ import TwitterProvider from "next-auth/providers/twitter";
 import Auth0 from "next-auth/providers/auth0";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
+import { NextApiHandler } from "next";
 
 const prisma = new PrismaClient();
 
@@ -35,6 +36,7 @@ export default NextAuth({
     //   from: process.env.EMAIL_FROM,
     // }),
   ],
+  secret: process.env.SECRET,
 });
 
 // export default (req, res) => NextAuth(req, res, options);

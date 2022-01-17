@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
+// import { signIn, signOut, useSession } from "next-auth/react";
 
 export async function getServerSideProps(context) {
   // const id = context.params.id
@@ -15,29 +16,21 @@ export async function getServerSideProps(context) {
 }
 
 export default function Questions({ questions }) {
+  // const { data: session } = useSession();
   const router = useRouter();
-
+  // if (session) {
   return (
-    <div>
-      <h3>
-        Hoy es tu ultimo dia de <strong>pobre</strong>
+    <div className="container mx-auto text-center">
+      <h2 className="font-bold text-black text-3xl text-center mt-2">
+        Sí. Hoy es tu último día de{" "}
+        <strong className="text-emerald-500">pobre</strong>
+      </h2>
+      <h3 className="font-normal text-black text-2xl text-center mt-2 mb-3">
+        A continuación te haremos unas preguntas para evaluar <br />
+        tu situación financiera
       </h3>
-
-      <br />
-      <section>
-        A continuacion te haremos unas preguntas para evaluar tu situacion
-        financiera
-      </section>
-      {/* <h2>{questions.title}</h2> */}
-      <section>
-        {/* <ul>
-          {questions.map((question) => (
-            <li key={question.id}>
-              <h3>{question.title}</h3>
-            </li>
-          ))}
-        </ul> */}
-      </section>
+      {/* Signed in as {session.user.email} <br />
+       <button onClick={() => signOut()}>Sign out</button> */}
 
       {/* <button
         className="bg-red-300"
@@ -61,7 +54,7 @@ export default function Questions({ questions }) {
                 query: { id: question.id },
               }}
             >
-              <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white">
+              <a className="rounded-xl p-3  mt-3 bg-emerald-400 text-white hover:bg-emerald-500">
                 Next
               </a>
             </Link>
@@ -70,4 +63,11 @@ export default function Questions({ questions }) {
       </ul>
     </div>
   );
+  //  }
+  // return (
+  //   <>
+  //     Not signed in <br />
+  //     <button onClick={() => signIn()}>Sign in</button>
+  //   </>
+  // );
 }

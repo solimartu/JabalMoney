@@ -55,7 +55,7 @@ export default function QuesA({ opcions, handleInputChange, name }) {
       ))} */}
       {opcions.map((opcion) => (
         <button
-          className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl"
+          className="bg-emerald-300 text-white py-3 px-20 mt-3 rounded-xl text-center font-extrabold text-2xl hover:bg-emerald-400 "
           key={opcion.id}
           onClick={(e) => handleInputChange(e)}
           name={name}
