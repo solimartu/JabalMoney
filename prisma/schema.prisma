@@ -21,6 +21,7 @@ id        Int      @id @default(autoincrement())
   image         String?
   accounts      Account[]
   sessions      Session[]
+  movimientos Calculator[]
 }
 
 model Question {
@@ -95,3 +96,13 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Calculator {
+  id Int      @id @default(autoincrement())
+  amount Float
+  concept String?
+  type String
+  category String?
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  }
