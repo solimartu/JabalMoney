@@ -81,22 +81,9 @@ function Registration() {
             />
           </div>
 
+          
           <div className="col-6 mt-4">
-            <div class="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-                onChange={(e) => handleInputChange(e)}
-              />
-              <label className="form-check-label" htmlFor="flexCheckDefault">
-                I agree with Terms of Use
-              </label>
-            </div>
-          </div>
-          <div className="col-6 mt-4">
-            <button type="submit" className="btn btn-test6 bg-test6 m-4">
+            <button type="submit" className="btn">
               Register
             </button>
           </div>
