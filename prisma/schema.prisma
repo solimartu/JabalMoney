@@ -101,7 +101,7 @@ model Calculator {
   id Int      @id @default(autoincrement())
   amount Float
   concept String?
-  type String
+  tipo String
   category String?
   user User @relation(fields: [userId], references: [id])
   userId Int

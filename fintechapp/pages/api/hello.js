@@ -7,13 +7,13 @@ async function main(req, res) {
   // ... you will write your Prisma Client queries here
   // const movimientos = await prisma.calculator.findMany();
   // res.json(movimientos);
-  const { concept } = req.body;
+  const { concept, type } = req.body;
   console.log("el reqbody y el concept", req.body, concept);
   const postmovimiento = await prisma.calculator.create({
     data: {
       amount: +req.body.amount,
       concept,
-      type: "ingreso",
+      type,
       category: "Regalo",
       user: {
         connect: {
