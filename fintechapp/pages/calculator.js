@@ -21,8 +21,8 @@ export default function Profile({ movements }) {
     type: "ingreso",
     category: "",
   });
-  const [ingresos, setIngresos] = useState();
-  const [gastos, setGastos] = useState();
+  const [ingresos, setIngresos] = useState([]);
+
   useEffect(() => {
     getIncomes();
   }, []);
@@ -46,12 +46,16 @@ export default function Profile({ movements }) {
   }
   async function getIncomes() {
     try {
-      const all = await fetch("/api/hello");
-      all
-        .filter((all) => all.userId === 1)
-        .reduce((acc, b) => acc + b.amount, 0);
-      setIngresos(all);
-      console.log(all);
+      const response = await fetch("/api/calculator/incomes");
+      // all
+      //   .filter((all) => all.userId === 1)
+      //   .reduce((acc, b) => acc + b.amount, 0);
+      // setIngresos(all);
+      // console.log(all);
+      console.log(response);
+      const data = await response.json();
+
+      setIngresos(data);
     } catch (err) {
       console.log(err);
     }
@@ -74,9 +78,10 @@ export default function Profile({ movements }) {
             <label className="text-xs text-black mb-1">Monto</label>
             <input
               placeholder="€ 0.00"
+              type="number"
               className="rounded-xl text-center mr-2 w-20 text-sm"
               name="amount"
-              value={+movimiento.amount}
+              value={movimiento.amount}
               onChange={(e) => handleInputChange(e)}
             />
           </div>
@@ -157,7 +162,7 @@ export default function Profile({ movements }) {
           <div className="flex flex-col text-center mb-3">
             <h3 className="text-2xl font-bold">Gastos</h3>
 
-            <h3 className="text-4xl font-light">{gastos}€</h3>
+            <h3 className="text-4xl font-light">0€</h3>
           </div>
         </div>
         <div className="flex items-center justify-center rounded-xl text-white text-4xl font-extrabold bg-emerald-400 flex-col drop-shadow-xl">
