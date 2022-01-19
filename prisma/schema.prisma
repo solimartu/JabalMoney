@@ -17,7 +17,7 @@ id        Int      @id @default(autoincrement())
   email     String?   @unique
   password      String
   answers AssessmentAnswer[] @relation("answers")
-  emailVerified DateTime? @map(name: "email_verified")
+  email_verified DateTime? @map(name: "email_verified")
   image         String?
   accounts      Account[]
   sessions      Session[]
