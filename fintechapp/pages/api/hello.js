@@ -3,10 +3,25 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-async function main() {
+async function main(req, res) {
   // ... you will write your Prisma Client queries here
-  
-  
+  const movimientos = await prisma.calculator.findMany();
+  res.json(movimientos);
+  const { concept } = req.body;
+  const postmovimiento = await prisma.calculator.create({
+    data: {
+      amount: +req.amount,
+      concept,
+      type: "ingreso",
+      category: "Regalo",
+      user: {
+        connect: {
+          id: 1,
+        },
+      },
+    },
+  });
+  res.json(postmovimiento);
 }
 
 main()
