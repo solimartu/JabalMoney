@@ -7,7 +7,9 @@ import { useState } from "react";
 import Router from "next/router";
 import useAuth from "./hooks/useAuth";
 
+
 export default function Home() {
+  
   const [credentials, setCredentials] = useState({
     username: "test",
     password: "test",
