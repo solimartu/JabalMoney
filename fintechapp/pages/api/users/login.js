@@ -8,8 +8,6 @@ const saltRounds = 10;
 
 const supersecret = process.env.SUPERSECRET;
 
-//first i create a new table in my db called users with userId, username, email and password columns
-//
 export default async function login(req, res) {
   const prisma = new PrismaClient();
 
@@ -36,18 +34,3 @@ export default async function login(req, res) {
     res.status(400).send({ message: err.message });
   }
 }
-
-// GET the profile of the logged user
-// router.get("/profile", userShouldBeLoggedIn, async function (req, res, next) {
-//   const { id } = req.user;
-
-//   const username = await models.User.findOne({
-//     where: {
-//       id,
-//     },
-//   });
-
-//   res.send(username.username);
-// });
-
-// module.exports = router;

@@ -8,7 +8,7 @@ function Registration() {
   const [error, setError] = useState("");
 
   const auth = useAuth();
-  // const navigate = useNavigate();
+ 
 
   const handleInputChange = (event) => {
     event.preventDefault();
@@ -30,14 +30,11 @@ function Registration() {
         body: JSON.stringify(user),
       });
       const newUser = await response.json();
-      console.log(newUser);
-      //   props.onDoneCb(newUser);
+
       setUser(newUser);
     } catch (error) {
       setError(error.message);
     }
-
-    // navigate("/login");
   };
   const { username, email, password } = user;
 

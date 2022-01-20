@@ -5,15 +5,13 @@ var jwt = require("jsonwebtoken");
 require("dotenv").config();
 var bcrypt = require("bcrypt");
 
-
-
 export default async function register(req, res) {
   //REGISTER a new user
   const saltRounds = 10;
-  // router.post("/register", userShouldBeUnique, async (req, res) => {
+
   const { username, email, password } = req.body;
-  console.log('la password boluda', password)
-  console.log('hay una email nooo', email)
+  console.log("la password boluda", password);
+  console.log("hay una email nooo", email);
   const prisma = new PrismaClient();
 
   try {

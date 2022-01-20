@@ -21,10 +21,10 @@ export default async function handle(req, res) {
       opcion: opcion,
     };
     res.status(200).json(questionnaire);
-    console.log("a ver que polla es esto questionnaire", questionnaire);
+    
     
   } catch (error) {
-    console.log("este seria el error", error);
+    
     res.status(400).json({ error });
   }
   handle()
