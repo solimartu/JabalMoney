@@ -5,55 +5,35 @@ import styles from "../styles/Home.module.css";
 // import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import Router from "next/router";
-
+import useAuth from "./hooks/useAuth";
 
 export default function Home() {
- 
+  const [credentials, setCredentials] = useState({
+    username: "test",
+    password: "test",
+  });
+  const [error, setError] = useState(null);
+  const auth = useAuth(); //so i dont need to do the post in here
 
-  const [errorMsg, setErrorMsg] = useState("");
+  const { username, password } = credentials;
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  const handleChange = (e) => {
+    e.persist();
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+  };
 
-    if (errorMsg) setErrorMsg("");
-
-    const body = {
-      username: e.currentTarget.username.value,
-      password: e.currentTarget.password.value,
-    };
-
+  const login = async () => {
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (res.status === 200) {
-        Router.push("/");
-      } else {
-        throw new Error(await res.text());
-      }
-    } catch (error) {
-      console.error("An unexpected error happened occurred:", error);
-      setErrorMsg(error.message);
+      await auth.signin(credentials);
+      // navigate("/dashboard");
+    } catch (err) {
+      setError(err);
     }
-  }
+  };
 
   return (
     <div className="container mx-auto bg-[#31ba9c]">
-      {/* {!session && (
-        <>
-          Not signed in <br />
-          <button onClick={signIn}>Sign In</button>
-        </>
-      )}
-      {session && (
-        <>
-          Sign in as {session.user.email} <br />
-          <div>You can now access our super secret pages</div>
-          <button onClick={signOut}>Sign Out</button>
-        </>
-      )}  */}
       <h2 className="font-bold text-white text-2xl text-center mt-2 pt-6">
         Hoy es el último día
       </h2>
@@ -71,22 +51,44 @@ export default function Home() {
           alt="bla"
         />
         <div className="flex items-center justify-center rounded-xl text-white bg-emerald-300 flex-col mr-2">
-          {/* <h5 className="font-bold text-xl">Tus ingresos:</h5>
-          <h3 className="font-extrabold text-5xl">lalala</h3> */}
-          {/* {!session && (
-            <>
-              Aún no estás logueado <br />
-              <button
-                onClick={() => signIn()}
-                className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto"
-              >
-                Sign In
-              </button> */}
-          <Link href={`/questions`}>
-            <a className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto">
-              Deja de perder tiempo
-            </a>
-          </Link>
+          <div className="container shadow mt-4">
+            <br />
+            <h3>Login</h3>
+
+            <div className="col-6">
+              <label>Username</label>
+              <input
+                type="text"
+                name="username"
+                placeholder="type your username"
+                value={username}
+                className="form-control"
+                onChange={(e) => handleChange(e)}
+              />
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => handleChange(e)}
+              />
+              <Link href={`/questions`}>
+                <button
+                  className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto"
+                  type="submit"
+                  onClick={login}
+                >
+                  Log in
+                </button>
+              </Link>
+            </div>
+            {error && <div className="alert alert-danger mt-4">{error}</div>}
+            <br />
+
+            {/* <button className="btn btn-test6 bg-test6 m-4" onClick={logout}>Log out</button> */}
+            {/* <button className="btn btn-test6 bg-test6 m-4" onClick={requestData}>see entries</button> */}
+          </div>
 
           {/* </>
           

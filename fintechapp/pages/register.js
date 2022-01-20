@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-// import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Link from "next/link";
 import useAuth from "./hooks/useAuth";
 
 function Registration() {
@@ -81,11 +81,15 @@ function Registration() {
             />
           </div>
 
-          
           <div className="col-6 mt-4">
-            <button type="submit" className="btn">
-              Register
-            </button>
+            <Link href={`/`}>
+              <button
+                className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto"
+                type="submit"
+              >
+                Register
+              </button>
+            </Link>
           </div>
         </form>
       </div>
