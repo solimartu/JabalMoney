@@ -26,7 +26,6 @@ export default function Home() {
   const login = async () => {
     try {
       await auth.signin(credentials);
-      // navigate("/dashboard");
     } catch (err) {
       setError(err);
     }
@@ -87,54 +86,9 @@ export default function Home() {
             <br />
 
             {/* <button className="btn btn-test6 bg-test6 m-4" onClick={logout}>Log out</button> */}
-            {/* <button className="btn btn-test6 bg-test6 m-4" onClick={requestData}>see entries</button> */}
           </div>
-
-          {/* </>
-          
-          )}
-          {session && (
-            <>
-              Sign in as {session.user.username} <br />
-              <div>You can now access our super secret pages</div>
-              <button onClick={() => signOut()}>Sign Out</button>
-              <Link href={`/questions`}>
-                <a className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto">
-                  Deja de perder tiempo
-                </a>
-              </Link>
-            </>
-          )}  */}
         </div>
       </div>
-      {/* <Image
-        priority
-        src="/images/financialimg2.webp"
-        className="img-fluid mx-auto text-center"
-        height={783}
-        width={1024}
-        layout="responsive"
-        alt="bla"
-      /> */}
-      {/* <div className="text-center mt-3 mb-3">
-        <Link href={`/questions`}>
-          <a className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto">
-            Deja de perder tiempo
-          </a>
-        </Link>
-      </div> */}
     </div>
   );
-
-  // export default async function getServerSideProps() {
-  //   // Fetch data from external API
-  //   const apiUrl = "http://localhost:3000/api/questions";
-  //   const response = await fetch(apiUrl);
-  //   const data = await response.json();
-  //   console.log(data);
-  //   //  setQuestions(data);
-  //   //  console.log(questions);
-  // }
-
-  // return <div></div>;
 }

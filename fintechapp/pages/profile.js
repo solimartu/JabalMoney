@@ -9,7 +9,6 @@ export async function getStaticProps() {
     where: { userId: 1 },
   });
 
-  console.log(assessments);
   return {
     props: { assessments },
   };
@@ -48,7 +47,7 @@ export default function Profile({ assessments }) {
   }
   async function sendIngreso() {
     try {
-      await fetch("/api/hello", {
+      await fetch("/api/calculator/movimientos", {
         method: "POST",
         body: JSON.stringify(ingreso),
         headers: { "Content-Type": "application/json" },
@@ -59,7 +58,7 @@ export default function Profile({ assessments }) {
   }
   async function sendGasto() {
     try {
-      await fetch("/api/hello", {
+      await fetch("/api/calculator/movimientos", {
         method: "POST",
         body: JSON.stringify(gasto),
         headers: { "Content-Type": "application/json" },
@@ -125,20 +124,14 @@ export default function Profile({ assessments }) {
           </div>
           <div className="flex items-center justify-center rounded-xl text-white bg-emerald-500 flex-col text-center">
             <h5 className="font-bold text-xl">Tus objetivos:</h5>
-            {/* <h3 className="text-5xl font-extrabold">1</h3> */}
+
             <h5 className="text-4xl font-extrabold">
               {assessments.objective1}
             </h5>
-
-            {/* <h3 className="text-5xl font-extrabold">2</h3>
-    <h5 className="text-2xl font-extrabold">{assessments.objective2}</h5> */}
           </div>
         </div>
       </>
       <div className="container mx-auto">
-        {/* {assessments.map((a) => (
-        <div key={a}> {a.incomes}</div>
-      ))} */}
         <h2 className="font-bold text-black text-2xl text-center mt-2 mb-3">
           Calculadora de gastos e ingresos
         </h2>

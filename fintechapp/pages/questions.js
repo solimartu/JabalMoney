@@ -5,7 +5,6 @@ import Link from "next/link";
 // import { signIn, signOut, useSession } from "next-auth/react";
 
 export async function getServerSideProps(context) {
-  // const id = context.params.id
   const apiUrl = `http://localhost:3000/api/questions/`;
   const response = await fetch(apiUrl);
   const questions = await response.json();
@@ -16,9 +15,8 @@ export async function getServerSideProps(context) {
 }
 
 export default function Questions({ questions }) {
-  // const { data: session } = useSession();
   const router = useRouter();
-  // if (session) {
+
   return (
     <div className="container mx-auto text-center">
       <h2 className="font-bold text-black text-3xl text-center mt-2">
@@ -29,22 +27,7 @@ export default function Questions({ questions }) {
         A continuación te haremos unas preguntas para evaluar <br />
         tu situación financiera
       </h3>
-      {/* Signed in as {session.user.email} <br />
-       <button onClick={() => signOut()}>Sign out</button> */}
 
-      {/* <button
-        className="bg-red-300"
-        type="button"
-        onClick={() => {
-          router.push({
-            pathname: "/questions/[id]",
-            query: { id: questions.id },
-          });
-        }}
-      >
-        Next
-      </button> */}
-      {/* <button className="p-3 bg-gray-200" onClick={showQuestions}>Start assesment</button> */}
       <ul className="mt-3">
         {questions.map((question) => (
           <li key={question.id}>
@@ -63,11 +46,4 @@ export default function Questions({ questions }) {
       </ul>
     </div>
   );
-  //  }
-  // return (
-  //   <>
-  //     Not signed in <br />
-  //     <button onClick={() => signIn()}>Sign in</button>
-  //   </>
-  // );
 }
