@@ -2,30 +2,30 @@ import { PrismaClient } from "@prisma/client";
 import { useState, useEffect } from "react";
 import BoxMovement from "../components/BoxMovement";
 
-export async function getStaticProps() {
-  const prisma = new PrismaClient();
+// export async function getStaticProps() {
+//   const prisma = new PrismaClient();
 
-  const movements = await prisma.calculator.findMany({
-    where: { userId: 1 },
-  });
+//   const movements = await prisma.calculator.findMany({
+//     where: { userId: 1 },
+//   });
 
-  console.log(movements);
-  return {
-    props: { movements },
-  };
-}
+//   console.log(movements);
+//   return {
+//     props: { movements },
+//   };
+// }
 
-export default function Profile({ movements }) {
+export default function Profile() {
   const [ingreso, setIngreso] = useState({
     amount: 0,
     concept: "",
-    type: "ingreso",
+    tipo: "ingreso",
     category: "equis",
   });
   const [gasto, setGasto] = useState({
     amount: 0,
     concept: "",
-    type: "gasto",
+    tipo: "gasto",
     category: "equis",
   });
   const [movimientos, setMovimientos] = useState([]);

@@ -5,13 +5,13 @@ export default async function handle(req, res) {
   const incomes = await prisma.calculator.findMany({
     where: {
       userId: 1,
-      type: "ingreso",
+      tipo: "ingreso",
     },
   });
   const outcomes = await prisma.calculator.findMany({
     where: {
       userId: 1,
-      type: "gasto",
+      tipo: "gasto",
     },
   });
   const totalingresos = incomes
@@ -27,5 +27,5 @@ export default async function handle(req, res) {
     balance: balance,
   };
   res.send(total);
-  console.log("los amounts", amounts);
+
 }
