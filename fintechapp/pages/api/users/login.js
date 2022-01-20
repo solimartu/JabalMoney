@@ -6,16 +6,17 @@ require("dotenv").config();
 var bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const supersecret = process.env.SUPER_SECRET;
-
+const supersecret = process.env.SUPERSECRET;
 
 //first i create a new table in my db called users with userId, username, email and password columns
-// 
+//
 export default async function login(req, res) {
+  const prisma = new PrismaClient();
+
   const { username, password } = req.body;
 
   try {
-    const user = await models.User.findOne({
+    const user = await prisma.user.findUnique({
       where: {
         username,
       },
