@@ -28,11 +28,11 @@ We are experimenting!
 | /api/calculator/movimientos | POST        | to add a movement        | {amount: float, concept: string, tipo:string} |                                                                     |
 ## User Flow
 
-![register](userflow\register.jpeg)
-![login](userflow\login.jpeg)
-![question1](userflow\q1.jpeg)
-![question2](userflow\q2.jpeg)
-![profile](userflow\profile.PNG)
+![register](register.jpeg)
+![login](login.jpeg)
+![question1](q1.jpeg)
+![question2](q2.jpeg)
+![profile](profile.PNG)
 
 ## Set up
 
