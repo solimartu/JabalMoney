@@ -10,8 +10,7 @@ export default async function register(req, res) {
   const saltRounds = 10;
 
   const { username, email, password } = req.body;
-  console.log("la password boluda", password);
-  console.log("hay una email nooo", email);
+
   const prisma = new PrismaClient();
 
   try {

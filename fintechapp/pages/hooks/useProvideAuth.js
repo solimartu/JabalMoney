@@ -4,8 +4,11 @@ import axios from "axios";
 // this is a custom hook that provides a reactive state to know if the user is authenticated or not
 // it also provides two functions to signin and signout
 function useProvideAuth() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
+    // Perform localStorage action
+// const item = localStorage.getItem("token");
+ const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  
 
 //This will be imported in the login component
   const signin = async (user, cb = () => {}) => {
