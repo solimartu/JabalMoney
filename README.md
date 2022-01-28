@@ -26,6 +26,13 @@ We are experimenting!
 | /api/questions              | GET         | to get all the questions |                                               | [{questions: {}, opcions:{} ]                                       |
 | /api/calculator/balance     | GET         | to get all the movements |                                               | {ingresos: totalingresos,,gastos: totalgastos,,balance: balance,,}; |
 | /api/calculator/movimientos | POST        | to add a movement        | {amount: float, concept: string, tipo:string} |                                                                     |
+## User Flow
+
+![register](userflow\register.jpeg)
+![login](userflow\login.jpeg)
+![question1](userflow\q1.jpeg)
+![question2](userflow\q2.jpeg)
+![profile](userflow\profile.PNG)
 
 ## Set up
 
