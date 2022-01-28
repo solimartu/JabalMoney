@@ -32,7 +32,7 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto bg-[#31ba9c]">
+    <div className="container mx-auto bg-[#31ba9c] pb-4">
       <h2 className="font-bold text-white text-2xl text-center mt-2 pt-6">
         Hoy es el último día
       </h2>
@@ -43,42 +43,43 @@ export default function Home() {
         <Image
           priority
           src="/images/financialimg2.webp"
-          className="img-fluid mx-auto text-center"
+          className="img-fluid mx-auto text-center col-span-2"
           height={783}
           width={1024}
           layout="responsive"
           alt="bla"
         />
-        <div className="flex items-center justify-center rounded-xl text-white bg-emerald-300 flex-col mr-2">
-          <div className="container shadow mt-4">
-            <br />
-            <h3>Login</h3>
+        <div className="flex items-center justify-center rounded-xl text-black bg-emerald-300/75 flex-col mr-4 ml-3 text-center drop-shadow-xl">
+          <div className="container mt-4">
+            <h3 className="font-bold text-white text-2xl pb-3">
+              Accede con tu cuenta
+            </h3>
 
-            <div className="col-6">
+            <div className="flex flex-col px-6">
               <label>Username</label>
               <input
                 type="text"
                 name="username"
-                placeholder="type your username"
+                // placeholder="type your username"
                 value={username}
-                className="form-control"
+                className="rounded-full px-3 mb-2 shadow-lg text-sm py-0.5"
                 onChange={(e) => handleChange(e)}
               />
               <label>Password</label>
               <input
                 type="password"
                 name="password"
-                className="form-control"
+                className="rounded-full px-3 mb-4 shadow-lg"
                 value={password}
                 onChange={(e) => handleChange(e)}
               />
               <Link href={`/questions`}>
                 <button
-                  className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto"
+                  className="rounded-lg p-3 bg-yellow-400 text-black text-center mx-auto hover:border-yellow-500 hover:text-lg drop-shadow-lg"
                   type="submit"
                   onClick={login}
                 >
-                  Log in
+                  A empezar
                 </button>
               </Link>
             </div>

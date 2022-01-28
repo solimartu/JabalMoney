@@ -18,13 +18,13 @@ export default function Profile({ assessments }) {
   const [ingreso, setIngreso] = useState({
     amount: 0,
     concept: "",
-    type: "ingreso",
+    tipo: "ingreso",
     category: "equis",
   });
   const [gasto, setGasto] = useState({
     amount: 0,
     concept: "",
-    type: "gasto",
+    tipo: "gasto",
     category: "equis",
   });
   const [movimientos, setMovimientos] = useState([]);
