@@ -5,16 +5,10 @@ import axios from "axios";
 // it also provides two functions to signin and signout
 function useProvideAuth() {
 
-
-
+    // Perform localStorage action
+// const item = localStorage.getItem("token");
+ const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   
-  // if (typeof window !== "undefined") {
-  //   // Perform localStorage action
-  //   const item = localStorage.getItem("key");
-  // }
-
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-
 
 //This will be imported in the login component
   const signin = async (user, cb = () => {}) => {
